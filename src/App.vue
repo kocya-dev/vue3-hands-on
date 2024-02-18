@@ -9,6 +9,7 @@ const items = ref([
     price: 480,
     image: "/images/item1.jpg",
     soldOut: false,
+    selected: false,
   },
   {
     id: 2,
@@ -17,6 +18,7 @@ const items = ref([
     price: 1180,
     image: "/images/item2.jpg",
     soldOut: false,
+    selected: false,
   },
   {
     id: 3,
@@ -25,6 +27,7 @@ const items = ref([
     price: 320,
     image: "/images/item3.jpg",
     soldOut: true,
+    selected: false,
   },
   {
     id: 4,
@@ -33,6 +36,7 @@ const items = ref([
     price: 670,
     image: "/images/item4.jpg",
     soldOut: false,
+    selected: false,
   },
 ]);
 
@@ -56,7 +60,7 @@ const stockQuantity = () => {
 const stockItem = (item) => {
   item.soldOut = false;
 };
-const getDate = () => Date.now();
+const getDate = () => new Date().toDateString();
 </script>
 
 <template>
@@ -65,10 +69,17 @@ const getDate = () => Date.now();
     <h1>Vue.js ハンズオン</h1>
   </header>
   <div>商品数：{{ stockQuantity() }}</div>
-  <div>現在時刻{{ getDate() }}</div>
+  <div>現在日時: {{ getDate() }}</div>
   <main class="main">
     <template v-for="item in items" :key="item.id">
-      <div v-if="!item.soldOut" class="item">
+      <div
+        v-if="!item.soldOut"
+        class="item"
+        :class="{ 'selected-item': item.selected }"
+        @keyup.enter="item.selected = !item.selected"
+        @click="item.selected = !item.selected"
+        tabindex="0"
+      >
         <div class="thumbnail">
           <img :src="item.image" alt="" />
         </div>
