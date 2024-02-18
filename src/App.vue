@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import Card from "./components/Card.vue";
 
 const items = ref([
   {
@@ -80,16 +81,7 @@ const getDate = () => new Date().toDateString();
         @click="item.selected = !item.selected"
         tabindex="0"
       >
-        <div class="thumbnail">
-          <img :src="item.image" alt="" />
-        </div>
-        <div class="description">
-          <h2>{{ item.name }}</h2>
-          <p>{{ item.description }}</p>
-          <span>
-            ¥<span class="price">{{ pricePrefix(item.price) }}</span>
-          </span>
-        </div>
+        <Card :image="item.image" :name="item.name" :description="item.description" :price="item.price" />
       </div>
       <div v-else>売り切れです<button type="button" @click="stockItem(item)">入荷</button></div>
     </template>
