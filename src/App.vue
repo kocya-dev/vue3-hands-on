@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import Card from "./components/Card.vue";
+import CardBody from "./components/CardBody.vue";
 
 const items = ref([
   {
@@ -82,8 +83,7 @@ const changeSoldOut = (id) => {
       >
         <Card :id="item.id" :image="item.image" :name="item.name" :price="item.price" @sold-out="changeSoldOut">
           <template #body>
-            <p>{{ item.description }}</p>
-            <a v-if="item.link" :href="item.link">リンク</a>
+            <CardBody :description="item.description" :link="item.link" />
           </template>
         </Card>
       </div>
