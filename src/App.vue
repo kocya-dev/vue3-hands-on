@@ -11,6 +11,7 @@ const items = ref([
     image: "/images/item1.jpg",
     soldOut: false,
     selected: false,
+    link: "https://handson.vuejs-jp.org/",
   },
   {
     id: 2,
@@ -82,6 +83,7 @@ const changeSoldOut = (id) => {
         <Card :id="item.id" :image="item.image" :name="item.name" :price="item.price" @sold-out="changeSoldOut">
           <template #body>
             <p>{{ item.description }}</p>
+            <a v-if="item.link" :href="item.link">リンク</a>
           </template>
         </Card>
       </div>
