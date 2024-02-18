@@ -42,13 +42,6 @@ const items = ref([
 ]);
 
 /**
- * 価格を3桁ごとのカンマ付きで返す
- * @param {number} price 価格
- */
-const pricePrefix = (price) => {
-  return price.toLocaleString();
-};
-/**
  * 在庫のある商品数を返す
  */
 const stockQuantity = () => {
@@ -62,6 +55,11 @@ const stockItem = (item) => {
   item.soldOut = false;
 };
 const getDate = () => new Date().toDateString();
+
+const changeSoldOut = (id) => {
+  const pickElm = items.value.find((item) => item.id == id);
+  pickElm.soldOut = true;
+};
 </script>
 
 <template>
@@ -81,7 +79,7 @@ const getDate = () => new Date().toDateString();
         @click="item.selected = !item.selected"
         tabindex="0"
       >
-        <Card :image="item.image" :name="item.name" :description="item.description" :price="item.price" />
+        <Card :id="item.id" :image="item.image" :name="item.name" :description="item.description" :price="item.price" @sold-out="changeSoldOut" />
       </div>
       <div v-else>売り切れです<button type="button" @click="stockItem(item)">入荷</button></div>
     </template>

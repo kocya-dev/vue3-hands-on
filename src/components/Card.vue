@@ -1,5 +1,10 @@
 <script setup>
 defineProps({
+  id: {
+    type: Number,
+    default: null,
+    required: false,
+  },
   name: {
     type: String,
     default: "",
@@ -37,6 +42,8 @@ const stockItem = (item) => {
   item.soldOut = false;
 };
 const getDate = () => new Date().toDateString();
+
+const emit = defineEmits(["sold-out"]);
 </script>
 
 <template>
@@ -50,6 +57,7 @@ const getDate = () => new Date().toDateString();
       ¥<span class="price">{{ pricePrefix(price) }}</span>
     </span>
   </div>
+  <button type="button" @click="() => emit('sold-out', id)">売り切れ</button>
 </template>
 
 <style>
